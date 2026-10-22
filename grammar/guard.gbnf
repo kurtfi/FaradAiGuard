@@ -1,0 +1,14 @@
+# GBNF grammar for strict FaradAiGuard structured output
+# Format: { "verdict": "ALLOW" | "BLOCK", "risk_score": 0.0-1.0, "reason": "...", "cwe": "CWE-..." }
+
+root ::= "{" ws "\"verdict\"" ws ":" ws verdict-val ws "," ws "\"risk_score\"" ws ":" ws number ws "," ws "\"reason\"" ws ":" ws string ws "," ws "\"cwe\"" ws ":" ws cwe-val ws "}"
+
+verdict-val ::= "\"ALLOW\"" | "\"BLOCK\""
+
+cwe-val ::= "\"\"" | "\"CWE-" [0-9]+ "\""
+
+number ::= "0." [0-9]+ | "1.0" | "0.0" | "0" | "1"
+
+string ::= "\"" char* "\""
+char ::= [^"\\\x7F\x00-\x1F] | "\\" ["\\/bfnrt] | "\\u" [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F]
+ws ::= [ \t\n\r]*
