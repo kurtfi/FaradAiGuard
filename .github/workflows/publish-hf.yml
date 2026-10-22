@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       model:
-        description: 'Model to publish (all, qwen3guard, kaya, granite)'
+        description: 'Model to publish (all, qwen3guard, laya, granite)'
         required: true
         default: 'all'
 
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        model: [qwen3guard, kaya, granite]
+        model: [qwen3guard, laya, granite]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4

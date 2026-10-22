@@ -14,7 +14,7 @@ FaradAiGuard packages and serves calibrated security SLMs tailored for Policy En
 | Model | Parameters | Benchmark Accuracy | False Positive | RAM | Best For |
 |---|---|---|---|---|---|
 | **Qwen3Guard** | 0.6B | 79.6% | **3.3%** | ~1 GB | Fast developer workstations, low latency (<20ms) |
-| **Kaya-Guard** | ~1.5B | **86.2%** | 4.4% | ~1.5 GB | Deep threat detection, agent-to-agent prompt injection |
+| **Laya-Guard** | ~1.5B | **86.2%** | 4.4% | ~1.5 GB | Deep threat detection, agent-to-agent prompt injection |
 | **Granite Guardian** | 2.0B | 78.3% | 4.7% | ~2.5 GB | Enterprise compliance, DLP, and OWASP Top 10 |
 
 ---
@@ -28,8 +28,8 @@ Run any model instantly with Ollama (Metal GPU on macOS and CUDA on Linux suppor
 # Qwen3Guard (Ultra-lightweight)
 ollama run hf.co/faradailab/guard-qwen3guard
 
-# Kaya-Guard (Deep Security)
-ollama run hf.co/faradailab/guard-kaya
+# Laya-Guard (Deep Security)
+ollama run hf.co/faradailab/guard-laya
 
 # IBM Granite Guardian
 ollama run hf.co/faradailab/guard-granite
@@ -52,7 +52,7 @@ curl http://localhost:8088/health
 For native Apple Silicon Metal acceleration using MLX:
 ```bash
 pip install mlx-lm
-python -m mlx_lm.generate --model faradailab/guard-kaya-mlx --prompt "..."
+python -m mlx_lm.generate --model faradailab/guard-laya-mlx --prompt "..."
 ```
 
 ---

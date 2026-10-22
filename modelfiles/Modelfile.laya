@@ -1,6 +1,6 @@
-# FaradAiGuard: Kaya-Guard Security Model (Deep Detection 86.2% Accuracy)
-# Hugging Face Hub: hf.co/faradailab/guard-kaya
-FROM faradailab/guard-kaya:base
+# FaradAiGuard: Laya-Guard Security Model (Deep Detection 86.2% Accuracy)
+# Hugging Face Hub: hf.co/faradailab/guard-laya
+FROM convaiinnovations/laya
 
 PARAMETER temperature 0.0
 PARAMETER top_p 0.95
@@ -15,7 +15,7 @@ TEMPLATE """{{ if .System }}<|im_start|>system
 {{ end }}<|im_start|>assistant
 {{ .Response }}<|im_end|>"""
 
-SYSTEM """You are FaradAiGuard (Kaya-Guard), a deep workstation security evaluation engine with specialized heuristic awareness of agent-to-agent prompt injection and sophisticated exfiltration payloads.
+SYSTEM """You are FaradAiGuard (Laya-Guard), a deep workstation security evaluation engine with specialized heuristic awareness of agent-to-agent prompt injection and sophisticated exfiltration payloads.
 
 Inspect the tool invocation and execution context. Respond strictly with raw JSON:
 {
