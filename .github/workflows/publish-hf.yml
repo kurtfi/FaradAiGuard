@@ -26,36 +26,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Hugging Face Hub CLI
+      - name: Install Dependencies
         run: |
           pip install --upgrade huggingface_hub
 
-      - name: Publish Model & Modelfile to faradailab
+      - name: Publish Model & Modelfile to Hugging Face
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.model == 'all' || github.event.inputs.model == matrix.model
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          MODEL_NAME: ${{ matrix.model }}
         run: |
-          echo "Publishing FaradAiGuard ${MODEL_NAME} to hf.co/faradailab/guard-${MODEL_NAME}..."
-          python - << 'PYEOF'
-          import os
-          from huggingface_hub import HfApi, create_repo
-
-          hf_token = os.environ.get("HF_TOKEN")
-          model = os.environ.get("MODEL_NAME")
-          repo_id = f"faradailab/guard-{model}"
-
-          if hf_token:
-              api = HfApi(token=hf_token)
-              create_repo(repo_id=repo_id, repo_type="model", exist_ok=True, token=hf_token)
-              modelfile_path = f"modelfiles/Modelfile.{model}"
-              if os.path.exists(modelfile_path):
-                  api.upload_file(
-                      path_or_fileobj=modelfile_path,
-                      path_in_repo="Modelfile",
-                      repo_id=repo_id,
-                      repo_type="model"
-                  )
-                  print(f"Successfully uploaded Modelfile for {repo_id}")
-          else:
-              print("HF_TOKEN secret not configured; skipping remote push in dry-run mode.")
-          PYEOF
+          python scripts/publish_to_hf.py --model ${{ matrix.model }}
