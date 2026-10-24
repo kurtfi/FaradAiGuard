@@ -1,6 +1,6 @@
 # FaradAiGuard: Multi-Arch C++ Inference Container based on llama.cpp server
 # Exposes OpenAI-compatible API on port 8088 with strict GBNF grammar enforcement
-FROM ghcr.io/ggerganov/llama.cpp:server
+FROM ghcr.io/ggml-org/llama.cpp:server
 
 ARG MODEL=qwen3guard
 ARG GGUF_FILE=""
@@ -24,4 +24,4 @@ EXPOSE 8088
 HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://127.0.0.1:8088/health || exit 1
 
-ENTRYPOINT ["sh", "-c", "exec llama-server --host ${HOST} --port ${PORT} --model /models/${MODEL_NAME}.gguf --ctx-size ${CTX_SIZE} --grammar-file /grammar/guard.gbnf --cont-batching -fa"]
+ENTRYPOINT ["sh", "-c", "exec /app/llama-server --host ${HOST} --port ${PORT} --model /models/${MODEL_NAME}.gguf --ctx-size ${CTX_SIZE} --grammar-file /grammar/guard.gbnf --cont-batching -fa"]
