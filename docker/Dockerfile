@@ -17,7 +17,7 @@ COPY grammar/guard.gbnf /grammar/guard.gbnf
 
 # Copy model weights if baked into build context, or mount via volume
 RUN mkdir -p /models
-COPY models/* /models/ 2>/dev/null || true
+COPY models/ /models/
 
 EXPOSE 8088
 
