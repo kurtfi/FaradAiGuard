@@ -26,8 +26,8 @@ MODELS_CONFIG = {
         "desc": "Deep heuristic security evaluation model with agent-to-agent prompt injection defense.",
     },
     "granite": {
-        "source_repo": "ibm-granite/granite-guardian-3.0-2b-instruct-GGUF",
-        "source_file": "granite-guardian-3.0-2b-instruct-Q4_K_M.gguf",
+        "source_repo": "QuantFactory/granite-guardian-3.0-2b-GGUF",
+        "source_file": "granite-guardian-3.0-2b.Q4_K_M.gguf",
         "target_file": "guard-granite.Q4_K_M.gguf",
         "title": "FaradAiGuard Granite Guardian 2.0B Security SLM",
         "desc": "Enterprise compliance and data loss prevention (DLP) inspector.",

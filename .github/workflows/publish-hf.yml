@@ -15,6 +15,7 @@ jobs:
   publish-hf:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         model: [qwen3guard, laya, granite]
     steps:
