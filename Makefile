@@ -15,6 +15,7 @@ build-docker:
 
 create-ollama:
 	ollama create faradailab/guard-$(MODEL) -f modelfiles/Modelfile.$(MODEL)
+	ollama cp faradailab/guard-$(MODEL) hf.co/faradailab/guard-$(MODEL):latest
 
 publish-hf:
 	python3 scripts/publish_to_hf.py --model $(MODEL)

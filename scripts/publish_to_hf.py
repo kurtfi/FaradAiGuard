@@ -12,6 +12,7 @@ import sys
 
 MODELS_CONFIG = {
     "qwen3guard": {
+        "category": "llm",
         "source_repo": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
         "source_file": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
         "target_file": "guard-qwen3guard.Q4_K_M.gguf",
@@ -19,13 +20,15 @@ MODELS_CONFIG = {
         "desc": "Ultra-lightweight (<20ms) inline PEP security evaluator model.",
     },
     "laya": {
+        "category": "decision",
         "source_repo": "ggml-org/Laya-GGUF",
         "source_file": "Laya-Q8_0.gguf",
         "target_file": "guard-laya.Q4_K_M.gguf",
-        "title": "FaradAiGuard Laya-Guard Security SLM",
-        "desc": "Deep heuristic security evaluation model with agent-to-agent prompt injection defense.",
+        "title": "FaradAiGuard Laya-Guard Decision Model",
+        "desc": "Deep heuristic security evaluation model with ModernBERT sequence classification and Root Intent Isolation.",
     },
     "granite": {
+        "category": "llm",
         "source_repo": "QuantFactory/granite-guardian-3.0-2b-GGUF",
         "source_file": "granite-guardian-3.0-2b.Q4_K_M.gguf",
         "target_file": "guard-granite.Q4_K_M.gguf",

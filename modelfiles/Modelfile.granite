@@ -1,6 +1,6 @@
 # FaradAiGuard: IBM Granite Guardian 3.0-2B Security Model
 # Hugging Face Hub: hf.co/faradailab/guard-granite
-FROM ibm-granite/granite-guardian-3.0-2b-instruct-GGUF:q4_k_m
+FROM hf.co/QuantFactory/granite-guardian-3.0-2b-GGUF:q4_k_m
 
 PARAMETER temperature 0.0
 PARAMETER top_p 0.95

@@ -1,26 +1,9 @@
-# FaradAiGuard: Laya-Guard Security Model (Deep Detection 86.2% Accuracy)
+# FaradAiGuard: Laya-Guard Decision Model (Deep Detection 86.2% Accuracy)
 # Hugging Face Hub: hf.co/faradailab/guard-laya
-FROM convaiinnovations/laya
+# Architecture: ModernBERT Sequence Classifier / Decision Model
+# Supported Endpoints: Ollama POST /v1/systemone, ollama run --ask
+FROM hf.co/faradailab/guard-laya:latest
 
-PARAMETER temperature 0.0
-PARAMETER top_p 0.95
-PARAMETER num_ctx 2048
-PARAMETER stop "<|im_end|>"
-PARAMETER stop "<|endoftext|>"
+# Note: ModernBERT encoder classification models do not utilize ChatML chat templates.
+# Evaluation is performed via Ollama SystemOne decision API with Root Intent Isolation (DEC-07).
 
-TEMPLATE """{{ if .System }}<|im_start|>system
-{{ .System }}<|im_end|>
-{{ end }}{{ if .Prompt }}<|im_start|>user
-{{ .Prompt }}<|im_end|>
-{{ end }}<|im_start|>assistant
-{{ .Response }}<|im_end|>"""
-
-SYSTEM """You are FaradAiGuard (Laya-Guard), a deep workstation security evaluation engine with specialized heuristic awareness of agent-to-agent prompt injection and sophisticated exfiltration payloads.
-
-Inspect the tool invocation and execution context. Respond strictly with raw JSON:
-{
-  "verdict": "ALLOW" or "BLOCK",
-  "risk_score": 0.0 to 1.0,
-  "reason": "Detailed security finding",
-  "cwe": "CWE-ID or empty string"
-}"""

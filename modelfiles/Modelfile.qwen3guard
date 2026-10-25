@@ -1,6 +1,6 @@
 # FaradAiGuard: Qwen3Guard-0.6B Security Model
 # Hugging Face Hub: hf.co/faradailab/guard-qwen3guard
-FROM Qwen/Qwen2.5-0.5B-Instruct-GGUF:q4_k_m
+FROM hf.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF:q4_k_m
 
 PARAMETER temperature 0.0
 PARAMETER top_p 0.90

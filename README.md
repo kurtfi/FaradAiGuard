@@ -9,29 +9,33 @@ FaradAiGuard packages and serves calibrated security SLMs tailored for Policy En
 
 ---
 
-## 🎯 Supported Security Models
+## 🎯 Supported Security Models & Paradigms
 
-| Model | Parameters | Benchmark Accuracy | False Positive | RAM | Best For |
-|---|---|---|---|---|---|
-| **Qwen3Guard** | 0.6B | 79.6% | **3.3%** | ~1 GB | Fast developer workstations, low latency (<20ms) |
-| **Laya-Guard** | ~1.5B | **86.2%** | 4.4% | ~1.5 GB | Deep threat detection, agent-to-agent prompt injection |
-| **Granite Guardian** | 2.0B | 78.3% | 4.7% | ~2.5 GB | Enterprise compliance, DLP, and OWASP Top 10 |
+FaradAiGuard explicitly categorizes security models into two paradigms:
+1. **Decision Models (`decision_model`)**: Encoder-only Sequence Classifiers (e.g., ModernBERT) evaluated via native Ollama `POST /v1/systemone` or `ollama run --ask`. They output calibrated probabilities without generative hallucination.
+2. **Generative LLMs (`generative_llm`)**: Autoregressive Decoder LLMs evaluated via `POST /api/chat` or `POST /v1/chat/completions` with strict GBNF JSON grammar.
+
+| Model | Paradigm | Architecture | Benchmark Acc. | FP Rate | RAM | PEP Endpoint |
+|---|---|---|---|---|---|---|
+| **Laya-Guard** | `decision_model` | ModernBERT (Sequence Classifier) | **86.2%** | 4.4% | ~1.5 GB | Ollama `/v1/systemone`, `--ask` |
+| **Qwen3Guard** | `generative_llm` | Qwen 2.5 (Autoregressive Decoder) | 79.6% | **3.3%** | ~1 GB | Ollama `/api/chat`, Docker `:8088` |
+| **Granite Guardian** | `generative_llm` | Granite 3.0 (Autoregressive Decoder) | 78.3% | 4.7% | ~2.5 GB | Ollama `/api/chat`, Docker `:8088` |
 
 ---
 
 ## 🚀 Quick Start
 
 ### Option 1: Native Ollama (Recommended for Local Dev)
-Run any model instantly with Ollama (Metal GPU on macOS and CUDA on Linux supported out-of-the-box):
+Run models with Ollama (Metal GPU on macOS and CUDA on Linux supported out-of-the-box):
 
 ```bash
-# Qwen3Guard (Ultra-lightweight)
+# Qwen3Guard (Generative LLM - Interactive chat)
 ollama run hf.co/faradailab/guard-qwen3guard
 
-# Laya-Guard (Deep Security)
-ollama run hf.co/faradailab/guard-laya
+# Laya-Guard (Decision Model - Single-turn evaluation via --ask or /v1/systemone)
+ollama run hf.co/faradailab/guard-laya:latest --ask "PRIMARY_USER_GOAL: Inspect files\nTOOL_NAME: execute_bash\nCALL_ARGUMENTS: {\"cmd\":\"ls -la\"}"
 
-# IBM Granite Guardian
+# IBM Granite Guardian (Generative LLM - Interactive chat)
 ollama run hf.co/faradailab/guard-granite
 ```
 
