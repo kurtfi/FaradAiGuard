@@ -45,8 +45,22 @@ def resolve_model(model_name: str = "laya", target_runtime: str = "auto") -> Dic
     env = detect_environment()
 
     # Architectural model paradigm
-    is_decision_model = (model_name == "laya")
-    paradigm_str = "Decision Model (ModernBERT Encoder, /v1/systemone)" if is_decision_model else "Generative LLM (Autoregressive, /api/chat)"
+    is_decision_model = model_name in (
+        "laya",
+        "liquid-d1",
+        "d1",
+        "pplx-decider",
+        "pplx-decider-flash",
+        "mica",
+        "mica-v0.5",
+    )
+    if is_decision_model:
+        if model_name == "laya":
+            paradigm_str = "Decision Model (ModernBERT Encoder, /v1/systemone, --ask)"
+        else:
+            paradigm_str = "Decision Model (System 1 Readout /v1/systemone & Structured Generate Fallback)"
+    else:
+        paradigm_str = "Generative LLM (Autoregressive Decoder, /api/chat)"
 
     # Determine runtime if 'auto'
     if target_runtime == "auto":
@@ -98,7 +112,22 @@ def resolve_model(model_name: str = "laya", target_runtime: str = "auto") -> Dic
 
 def main():
     parser = argparse.ArgumentParser(description="Resolve optimal FaradAiGuard model and runtime for this machine.")
-    parser.add_argument("--model", default="laya", choices=["qwen3guard", "laya", "granite"], help="Model name")
+    parser.add_argument(
+        "--model",
+        default="laya",
+        choices=[
+            "qwen3guard",
+            "laya",
+            "granite",
+            "liquid-d1",
+            "d1",
+            "pplx-decider",
+            "pplx-decider-flash",
+            "mica",
+            "mica-v0.5",
+        ],
+        help="Model name",
+    )
     parser.add_argument(
         "--runtime",
         default="auto",

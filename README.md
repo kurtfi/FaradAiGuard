@@ -17,8 +17,11 @@ FaradAiGuard explicitly categorizes security models into two paradigms:
 
 | Model | Paradigm | Architecture | Benchmark Acc. | FP Rate | RAM | PEP Endpoint |
 |---|---|---|---|---|---|---|
-| **Laya-Guard** | `decision_model` | ModernBERT (Sequence Classifier) | **86.2%** | 4.4% | ~1.5 GB | Ollama `/v1/systemone`, `--ask` |
-| **Qwen3Guard** | `generative_llm` | Qwen 2.5 (Autoregressive Decoder) | 79.6% | **3.3%** | ~1 GB | Ollama `/api/chat`, Docker `:8088` |
+| **Mica v0.5-4B** | `decision_model` | Qwen 4B (Saf) System 1 Decision Model | **87.1%** | **3.2%** | ~2.9 GB | Ollama `/v1/systemone`, `/api/generate`, Docker `:8088` |
+| **Laya-Guard** | `decision_model` | ModernBERT (Sequence Classifier) | 86.2% | 4.4% | ~1.5 GB | Ollama `/v1/systemone`, `--ask` |
+| **Perplexity Decider Flash** | `decision_model` | Qwen 3.5-4B Non-Autoregressive Head | 85.5% | 3.6% | ~2.0 GB | Ollama `/v1/systemone`, `/api/generate`, Docker `:8088` |
+| **Liquid AI d1-3B** | `decision_model` | LFM Multimodal / Text Decision Head | 84.1% | 3.8% | ~2.3 GB | Ollama `/v1/systemone`, `/api/generate`, Docker `:8088` |
+| **Qwen3Guard** | `generative_llm` | Qwen 2.5 (Autoregressive Decoder) | 79.6% | 3.3% | ~1 GB | Ollama `/api/chat`, Docker `:8088` |
 | **Granite Guardian** | `generative_llm` | Granite 3.0 (Autoregressive Decoder) | 78.3% | 4.7% | ~2.5 GB | Ollama `/api/chat`, Docker `:8088` |
 
 ---
@@ -29,6 +32,15 @@ FaradAiGuard explicitly categorizes security models into two paradigms:
 Run models with Ollama (Metal GPU on macOS and CUDA on Linux supported out-of-the-box):
 
 ```bash
+# Mica v0.5-4B (Saf System 1 Decision Model)
+ollama run hf.co/faradailab/guard-mica
+
+# Liquid AI d1-3B (Decision Model)
+ollama run hf.co/faradailab/guard-liquid-d1
+
+# Perplexity Decider Flash (Decision Model)
+ollama run hf.co/faradailab/guard-pplx-decider
+
 # Qwen3Guard (Generative LLM - Interactive chat)
 ollama run hf.co/faradailab/guard-qwen3guard
 
@@ -43,6 +55,21 @@ ollama run hf.co/faradailab/guard-granite
 Run containerized C++ `llama-server` exposing OpenAI-compatible endpoints on port `8088`:
 
 ```bash
+# Run Mica v0.5-4B Decision Model container
+docker run -d --name faradai-guard-mica \
+  -p 8088:8088 \
+  ghcr.io/kurtfi/farad-ai-guard:mica-v0.5
+
+# Run Liquid AI d1-3B Decision Model container
+docker run -d --name faradai-guard-d1 \
+  -p 8088:8088 \
+  ghcr.io/kurtfi/farad-ai-guard:liquid-d1
+
+# Run Perplexity Decider Flash container
+docker run -d --name faradai-guard-pplx \
+  -p 8088:8088 \
+  ghcr.io/kurtfi/farad-ai-guard:pplx-decider
+
 # Run Qwen3Guard container
 docker run -d --name faradai-guard \
   -p 8088:8088 \

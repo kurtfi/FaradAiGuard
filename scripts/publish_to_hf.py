@@ -35,6 +35,30 @@ MODELS_CONFIG = {
         "title": "FaradAiGuard Granite Guardian 2.0B Security SLM",
         "desc": "Enterprise compliance and data loss prevention (DLP) inspector.",
     },
+    "liquid-d1": {
+        "category": "decision",
+        "source_repo": "LiquidAI/d1-3B-GGUF",
+        "source_file": "d1-3B-Q4_K_M.gguf",
+        "target_file": "guard-liquid-d1.Q4_K_M.gguf",
+        "title": "FaradAiGuard Liquid AI d1-3B Security Decision SLM",
+        "desc": "Non-autoregressive decision model with Root Intent Isolation and single-forward-pass threat scoring.",
+    },
+    "pplx-decider": {
+        "category": "decision",
+        "source_repo": "Jakevin/pplx-decider-flash-v1.2-GGUF",
+        "source_file": "pplx-decider-flash-v1.2.Q4_K_M.gguf",
+        "target_file": "guard-pplx-decider.Q4_K_M.gguf",
+        "title": "FaradAiGuard Perplexity Decider Flash v1.2 Security Decision SLM",
+        "desc": "Compact decision model for tool call security routing and policy compliance.",
+    },
+    "mica-v0.5": {
+        "category": "decision",
+        "source_repo": "mradermacher/Mica-v0.5-4B-GGUF",
+        "source_file": "Mica-v0.5-4B.Q4_K_M.gguf",
+        "target_file": "guard-mica-v0.5.Q4_K_M.gguf",
+        "title": "FaradAiGuard Mica v0.5-4B Security Decision SLM",
+        "desc": "High-accuracy System 1 decision model with Qwen backbone for deep agent tool governance.",
+    },
 }
 
 
@@ -162,7 +186,11 @@ FaradAiGuard models return strictly validated JSON:
 
 def main():
     parser = argparse.ArgumentParser(description="Publish FaradAiGuard models to Hugging Face")
-    parser.add_argument("--model", required=True, choices=["all", "qwen3guard", "laya", "granite"])
+    parser.add_argument(
+        "--model",
+        required=True,
+        choices=["all", "qwen3guard", "laya", "granite", "liquid-d1", "pplx-decider", "mica-v0.5"],
+    )
     parser.add_argument("--org", default="faradailab", help="Hugging Face organization")
     args = parser.parse_args()
 
