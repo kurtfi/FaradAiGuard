@@ -6,12 +6,14 @@ PORT="${PORT:-8088}"
 CTX_SIZE="${CTX_SIZE:-4096}"
 MODEL_NAME="${MODEL_NAME:-qwen3guard}"
 MODEL_FILE="/models/${MODEL_NAME}.gguf"
+FLASH_ATTN="${FLASH_ATTN:-auto}"
 
 echo "=== FaradAiGuard C++ PEP Inference Server ==="
 echo "  Host         : ${HOST}"
 echo "  Port         : ${PORT}"
 echo "  Context Size : ${CTX_SIZE}"
 echo "  Target Model : ${MODEL_NAME}"
+echo "  Flash Attn   : ${FLASH_ATTN}"
 
 # Model resolution strategy:
 # 1. Local/Baked file: /models/${MODEL_NAME}.gguf
@@ -72,7 +74,7 @@ if [ -f "/grammar/guard.gbnf" ]; then
 fi
 
 echo "============================================="
-echo "Executing: /app/llama-server --host ${HOST} --port ${PORT} ${TARGET_ARG} --ctx-size ${CTX_SIZE} ${GRAMMAR_ARG} --cont-batching -fa $@"
+echo "Executing: /app/llama-server --host ${HOST} --port ${PORT} ${TARGET_ARG} --ctx-size ${CTX_SIZE} ${GRAMMAR_ARG} --cont-batching --flash-attn ${FLASH_ATTN} $@"
 
 exec /app/llama-server \
     --host "${HOST}" \
@@ -81,5 +83,5 @@ exec /app/llama-server \
     --ctx-size "${CTX_SIZE}" \
     ${GRAMMAR_ARG} \
     --cont-batching \
-    -fa \
+    --flash-attn "${FLASH_ATTN}" \
     "$@"
