@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       model:
-        description: 'Model to build (all, qwen3guard, laya, granite)'
+        description: 'Model to build (all, qwen3guard, laya, granite, liquid-d1, pplx-decider, mica-v0.5)'
         required: true
         default: 'all'
 
@@ -22,8 +22,9 @@ jobs:
       contents: read
       packages: write
     strategy:
+      fail-fast: false
       matrix:
-        model: [qwen3guard, laya, granite]
+        model: [qwen3guard, laya, granite, liquid-d1, pplx-decider, mica-v0.5]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -45,6 +46,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels)
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.model == 'all' || github.event.inputs.model == matrix.model
         id: meta
         uses: docker/metadata-action@v5
         with:
@@ -54,6 +56,7 @@ jobs:
             type=raw,value=${{ matrix.model }}-${{ github.ref_name }}
 
       - name: Build and Push Multi-Arch Image
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.model == 'all' || github.event.inputs.model == matrix.model
         uses: docker/build-push-action@v5
         with:
           context: .

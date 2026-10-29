@@ -18,7 +18,7 @@ FaradAiGuard explicitly categorizes security models into two paradigms:
 | Model | Paradigm | Architecture | Benchmark Acc. | FP Rate | RAM | PEP Endpoint |
 |---|---|---|---|---|---|---|
 | **Mica v0.5-4B** | `decision_model` | Qwen 4B (Saf) System 1 Decision Model | **87.1%** | **3.2%** | ~2.9 GB | Ollama `/v1/systemone`, `/api/generate`, Docker `:8088` |
-| **Laya-Guard** | `decision_model` | ModernBERT (Sequence Classifier) | 86.2% | 4.4% | ~1.5 GB | Ollama `/v1/systemone`, `--ask` |
+| **Laya-Guard** | `decision_model` | ModernBERT (Sequence Classifier / System 1) | 86.2% | 4.4% | ~1.5 GB | Ollama `/v1/systemone`, `--ask`, Docker `:8088` |
 | **Perplexity Decider Flash** | `decision_model` | Qwen 3.5-4B Non-Autoregressive Head | 85.5% | 3.6% | ~2.0 GB | Ollama `/v1/systemone`, `/api/generate`, Docker `:8088` |
 | **Liquid AI d1-3B** | `decision_model` | LFM Multimodal / Text Decision Head | 84.1% | 3.8% | ~2.3 GB | Ollama `/v1/systemone`, `/api/generate`, Docker `:8088` |
 | **Qwen3Guard** | `generative_llm` | Qwen 2.5 (Autoregressive Decoder) | 79.6% | 3.3% | ~1 GB | Ollama `/api/chat`, Docker `:8088` |

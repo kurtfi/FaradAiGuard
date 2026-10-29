@@ -2,7 +2,7 @@
 # Hugging Face Hub: hf.co/faradailab/guard-pplx-decider
 # Architecture: Qwen3.5-4B Backbone Non-Autoregressive Decision Head
 # Supported Endpoints: Ollama POST /v1/systemone, /api/generate (Saf JSON), Docker :8088
-FROM hf.co/Jakevin/pplx-decider-flash-v1.2-GGUF:pplx-decider-flash-v1.2.Q4_K_M.gguf
+FROM hf.co/Jakevin/pplx-decider-flash-v1.2-GGUF:pplx-decider-flash-v1.2-Q4_K_M.gguf
 
 PARAMETER temperature 0.0
 PARAMETER top_p 0.90

@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       model:
-        description: 'Model to publish (all, qwen3guard, laya, granite)'
+        description: 'Model to publish (all, qwen3guard, laya, granite, liquid-d1, pplx-decider, mica-v0.5)'
         required: true
         default: 'all'
 
@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        model: [qwen3guard, laya, granite]
+        model: [qwen3guard, laya, granite, liquid-d1, pplx-decider, mica-v0.5]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4

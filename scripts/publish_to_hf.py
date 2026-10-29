@@ -23,7 +23,7 @@ MODELS_CONFIG = {
         "category": "decision",
         "source_repo": "ggml-org/Laya-GGUF",
         "source_file": "Laya-Q8_0.gguf",
-        "target_file": "guard-laya.Q4_K_M.gguf",
+        "target_file": "guard-laya.Q8_0.gguf",
         "title": "FaradAiGuard Laya-Guard Decision Model",
         "desc": "Deep heuristic security evaluation model with ModernBERT sequence classification and Root Intent Isolation.",
     },
@@ -46,7 +46,7 @@ MODELS_CONFIG = {
     "pplx-decider": {
         "category": "decision",
         "source_repo": "Jakevin/pplx-decider-flash-v1.2-GGUF",
-        "source_file": "pplx-decider-flash-v1.2.Q4_K_M.gguf",
+        "source_file": "pplx-decider-flash-v1.2-Q4_K_M.gguf",
         "target_file": "guard-pplx-decider.Q4_K_M.gguf",
         "title": "FaradAiGuard Perplexity Decider Flash v1.2 Security Decision SLM",
         "desc": "Compact decision model for tool call security routing and policy compliance.",
@@ -62,7 +62,15 @@ MODELS_CONFIG = {
 }
 
 
+MODEL_ALIASES = {
+    "d1": "liquid-d1",
+    "pplx-decider-flash": "pplx-decider",
+    "mica": "mica-v0.5",
+}
+
+
 def publish_model(model_name: str, hf_token: str, organization: str = "faradailab"):
+    model_name = MODEL_ALIASES.get(model_name, model_name)
     try:
         from huggingface_hub import HfApi, create_repo, hf_hub_download
     except ImportError:
@@ -189,7 +197,18 @@ def main():
     parser.add_argument(
         "--model",
         required=True,
-        choices=["all", "qwen3guard", "laya", "granite", "liquid-d1", "pplx-decider", "mica-v0.5"],
+        choices=[
+            "all",
+            "qwen3guard",
+            "laya",
+            "granite",
+            "liquid-d1",
+            "d1",
+            "pplx-decider",
+            "pplx-decider-flash",
+            "mica",
+            "mica-v0.5",
+        ],
     )
     parser.add_argument("--org", default="faradailab", help="Hugging Face organization")
     args = parser.parse_args()

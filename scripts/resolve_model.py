@@ -56,7 +56,7 @@ def resolve_model(model_name: str = "laya", target_runtime: str = "auto") -> Dic
     )
     if is_decision_model:
         if model_name == "laya":
-            paradigm_str = "Decision Model (ModernBERT Encoder, /v1/systemone, --ask)"
+            paradigm_str = "Decision Model (ModernBERT Encoder, /v1/systemone, --ask & Generate Fallback)"
         else:
             paradigm_str = "Decision Model (System 1 Readout /v1/systemone & Structured Generate Fallback)"
     else:

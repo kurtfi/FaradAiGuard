@@ -44,7 +44,7 @@ else
             ;;
         pplx-decider|pplx-decider-flash)
             echo "  Auto-resolving Perplexity Decider Flash from Hugging Face..."
-            TARGET_ARG="--hf-repo Jakevin/pplx-decider-flash-v1.2-GGUF --hf-file pplx-decider-flash-v1.2.Q4_K_M.gguf"
+            TARGET_ARG="--hf-repo Jakevin/pplx-decider-flash-v1.2-GGUF --hf-file pplx-decider-flash-v1.2-Q4_K_M.gguf"
             ;;
         mica|mica-v0.5)
             echo "  Auto-resolving Mica v0.5-4B from Hugging Face..."
